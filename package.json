@@ -1,0 +1,8 @@
+{
+  "name": "relay",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@gitpersonal:chriskrogh/relay.git",
+  "author": "Christopher Krogh <chris.krogh@outlook.com>",
+  "license": "MIT"
+}
