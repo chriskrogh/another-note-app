@@ -3,6 +3,9 @@ import express from 'express';
 import { graphqlHTTP } from 'express-graphql';
 import { buildSchema } from 'type-graphql';
 import HelloWorldResolver from 'resolvers/helloworld';
+import { add } from '@relay/shared';
+
+console.log(add(2, 3));
 
 const main = async () => {
   const schema = await buildSchema({
