@@ -7,10 +7,12 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "yarn workspace @relay/shared build && yarn workspace @relay/server build",
+    "build:shared": "yarn workspace @relay/shared build",
+    "build:server": "yarn workspace @relay/server build",
+    "build": "yarn build:shared && yarn build:server",
     "dev:shared": "yarn workspace @relay/shared build:watch",
     "dev:server": "yarn workspace @relay/server dev",
-    "dev": "yarn build && concurrently 'yarn dev:shared' 'yarn dev:server'"
+    "dev": "yarn build:shared && concurrently 'yarn dev:shared' 'yarn dev:server'"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.10.1",
