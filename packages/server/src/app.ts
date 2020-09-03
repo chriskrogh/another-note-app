@@ -1,30 +1,32 @@
 import 'reflect-metadata';
-// import express from 'express';
-// import { graphqlHTTP } from 'express-graphql';
-// import { buildSchema } from 'type-graphql';
-// import HelloWorldResolver from 'resolvers/helloworld';
-import { add } from '@relay/shared';
+import express from 'express';
+import { graphqlHTTP } from 'express-graphql';
+import { buildSchema } from 'type-graphql';
+import connect from './db/config';
+import NoteResolver from './resolvers/note';
 
-console.log(add(2, 44, 2));
+const main = async () => {
+  const schema = await buildSchema({
+    resolvers: [NoteResolver],
+  });
+  const app = express();
 
-// const main = async () => {
-//   const schema = await buildSchema({
-//     resolvers: [HelloWorldResolver],
-//   });
-//   const app = express();
-//   const PORT = 5000;
+  app.use(
+    '/graphql',
+    graphqlHTTP({
+      schema,
+      graphiql: true,
+    }),
+  );
 
-//   app.use(
-//     '/graphql',
-//     graphqlHTTP({
-//       schema,
-//     }),
-//   );
+  await connect();
 
-//   app.listen(PORT);
-//   console.log(
-//     `Running a GraphQL API server at http://localhost:${PORT}/graphql`,
-//   );
-// };
+  const PORT = 5000;
+  app.listen(PORT, () => {
+    console.log(
+      `Running a GraphQL API server at http://localhost:${PORT}/graphql`,
+    );
+  });
+};
 
-// main();
+main();
