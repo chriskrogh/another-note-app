@@ -1,5 +1,6 @@
 import { Resolver, Query, Arg, Mutation } from 'type-graphql';
 import NoteModel, { Note } from '../../models/Note';
+import { CreateNoteInput } from '../../validators/Note/create';
 
 @Resolver(Note)
 class NoteResolver {
@@ -10,8 +11,7 @@ class NoteResolver {
 
   @Mutation(() => Note)
   async createNote(
-    @Arg('title') title: string,
-    @Arg('description') description: string,
+    @Arg('data') { title, description }: CreateNoteInput,
   ): Promise<Note> {
     return await new NoteModel({ title, description }).save();
   }
