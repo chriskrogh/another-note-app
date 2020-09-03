@@ -3,7 +3,7 @@ import express from 'express';
 import { graphqlHTTP } from 'express-graphql';
 import { buildSchema } from 'type-graphql';
 import connect from './db/config';
-import NoteResolver from './resolvers/note';
+import NoteResolver from './resolvers/Note';
 
 const main = async () => {
   const schema = await buildSchema({

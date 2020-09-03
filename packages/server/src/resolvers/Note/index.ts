@@ -1,5 +1,5 @@
 import { Resolver, Query, Arg, Mutation } from 'type-graphql';
-import NoteModel, { Note } from '../models/note';
+import NoteModel, { Note } from '../../models/Note';
 
 @Resolver(Note)
 class NoteResolver {
