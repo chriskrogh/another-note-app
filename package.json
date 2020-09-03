@@ -8,12 +8,14 @@
   ],
   "scripts": {
     "build": "yarn workspace @relay/shared build && yarn workspace @relay/server build",
+    "dev:shared": "yarn workspace @relay/shared build:watch",
     "dev:server": "yarn workspace @relay/server dev",
-    "dev": "yarn dev:server"
+    "dev": "yarn build && concurrently 'yarn dev:shared' 'yarn dev:server'"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.10.1",
     "@typescript-eslint/parser": "^3.10.1",
+    "concurrently": "^5.3.0",
     "eslint": "^7.7.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
