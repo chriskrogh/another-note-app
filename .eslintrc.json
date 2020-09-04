@@ -5,9 +5,14 @@
   },
   "extends": [
     "eslint:recommended",
+    "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier/@typescript-eslint",
     "plugin:prettier/recommended"
+  ],
+  "plugins": [
+    "react",
+    "react-hooks"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -22,13 +27,6 @@
         "code": 95,
         "tabWidth": 2,
         "ignoreStrings": true
-      }
-    ],
-    // Allow unused variables with names beginning with _
-    "@typescript-eslint/no-unused-vars": [
-      "error",
-      {
-        "argsIgnorePattern": "next|_.*"
       }
     ]
   }
