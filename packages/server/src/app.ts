@@ -8,7 +8,9 @@ import NoteResolver from './resolvers/Note';
 const main = async () => {
   const schema = await buildSchema({
     resolvers: [NoteResolver],
+    emitSchemaFile: true,
   });
+
   const app = express();
 
   app.use(
