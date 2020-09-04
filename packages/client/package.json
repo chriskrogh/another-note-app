@@ -10,12 +10,17 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "graphql": "^15.3.0",
+    "graphql-relay": "^0.6.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-relay": "^10.0.1",
     "react-scripts": "3.4.3",
+    "relay-runtime": "^10.0.1",
     "typescript": "^4.0.2"
   },
   "scripts": {
+    "relay": "relay-compiler --src ./src --schema ../server/schema.gql",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -34,8 +39,8 @@
     ]
   },
   "devDependencies": {
+    "@types/relay-runtime": "^10.0.3",
     "babel-plugin-relay": "^10.0.1",
-    "graphql": "^15.3.0",
     "relay-compiler": "^10.0.1",
     "relay-config": "^10.0.1"
   }
