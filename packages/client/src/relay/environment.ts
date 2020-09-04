@@ -13,7 +13,7 @@ const fetchQuery: FetchFunction = async (request, variables) => {
     }),
   });
   return response.json();
-}
+};
 
 const environment = new Environment({
   network: Network.create(fetchQuery),
