@@ -5,7 +5,7 @@ import { CreateNoteInput } from '../../validators/Note/create';
 @Resolver(Note)
 class NoteResolver {
   @Query(() => [Note])
-  async allNotes(): Promise<Note[]> {
+  async AllNotes(): Promise<Note[]> {
     return await NoteModel.find({}).exec();
   }
 
