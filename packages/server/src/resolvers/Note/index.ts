@@ -1,5 +1,5 @@
 import { Resolver, Query, Arg, Mutation } from 'type-graphql';
-import NoteModel, { Note } from '../../models/Note';
+import NoteModel, { Note } from '@relay/shared/src/models/Note';
 import { CreateNoteInput } from '../../validators/Note/create';
 
 @Resolver(Note)

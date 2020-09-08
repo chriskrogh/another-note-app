@@ -1,13 +1,8 @@
 import React from 'react';
+import Notes from './components/Notes';
 
 const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>Hello</p>
-      </header>
-    </div>
-  );
+  return <Notes />;
 };
 
 export default App;
