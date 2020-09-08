@@ -6,7 +6,7 @@ const graphqlEndpoint =
     ? 'http://localhost:5000/graphql'
     : '/graphql';
 
-const fetchQuery: FetchFunction = async (request, variables) => {
+const fetchGraphQL: FetchFunction = async (request, variables) => {
   const response = await fetch(graphqlEndpoint, {
     method: 'POST',
     headers: {
@@ -21,7 +21,7 @@ const fetchQuery: FetchFunction = async (request, variables) => {
 };
 
 const environment = new Environment({
-  network: Network.create(fetchQuery),
+  network: Network.create(fetchGraphQL),
   store: new Store(new RecordSource()),
 });
 
