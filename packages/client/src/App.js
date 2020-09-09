@@ -4,20 +4,20 @@ import { useLazyLoadQuery } from 'react-relay/hooks';
 import Note from './components/Note';
 import './App.css';
 
-const AppQuery = graphql`
-  query AppQuery {
-    allNotes {
-      title
-      description
-    }
-  }
-`;
-
 function App() {
-  const data = useLazyLoadQuery(AppQuery);
+  const data = useLazyLoadQuery(
+    graphql`
+      query AppQuery {
+        allNotes {
+          title
+          description
+        }
+      }
+    `,
+  );
   return (
     <div className="App">
-      {data?.allNotes?.map((note, index) => (
+      {data?.allNotes.map((note, index) => (
         <Note key={index} note={note} />
       ))}
     </div>

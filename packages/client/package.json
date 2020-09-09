@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "babel-plugin-relay": "^10.0.1",
+    "flow-bin": "^0.133.0",
     "relay-compiler": "^10.0.1"
   }
 }
