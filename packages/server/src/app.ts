@@ -2,16 +2,22 @@ import 'reflect-metadata';
 import express from 'express';
 import { graphqlHTTP } from 'express-graphql';
 import { buildSchema } from 'type-graphql';
+import cors from 'cors';
 import connect from './db/config';
 import NoteResolver from './resolvers/Note';
+import 'dotenv/config';
 
-const main = async () => {
+const main = async (): Promise<void> => {
   const schema = await buildSchema({
     resolvers: [NoteResolver],
     emitSchemaFile: true,
   });
 
   const app = express();
+
+  if (process.env.NODE_ENV !== 'production') {
+    app.use(cors());
+  }
 
   app.use(
     '/graphql',
