@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
+import { RelayEnvironmentProvider } from 'react-relay/hooks';
 import App from './App';
+import RelayEnvironment from './relay/environment';
 import * as serviceWorker from './serviceWorker';
 import './index.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <RelayEnvironmentProvider environment={RelayEnvironment}>
+      <Suspense fallback={'Loading...'}>
+        <App />
+      </Suspense>
+    </RelayEnvironmentProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 );
