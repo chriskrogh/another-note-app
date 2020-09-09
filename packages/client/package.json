@@ -13,6 +13,7 @@
     "relay-runtime": "^10.0.1"
   },
   "scripts": {
+    "flow": "flow",
     "relay": "relay-compiler --schema ../server/schema.gql --src ./src/",
     "start": "yarn run relay && react-scripts start",
     "build": "yarn run relay && react-scripts build",
@@ -37,6 +38,7 @@
   "devDependencies": {
     "babel-plugin-relay": "^10.0.1",
     "flow-bin": "^0.133.0",
+    "flow-typed": "^3.2.1",
     "relay-compiler": "^10.0.1"
   }
 }
