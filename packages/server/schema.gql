@@ -18,5 +18,5 @@ type Note {
 }
 
 type Query {
-  AllNotes: [Note!]!
+  allNotes: [Note!]!
 }

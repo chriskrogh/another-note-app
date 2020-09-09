@@ -1,11 +1,11 @@
 import { Resolver, Query, Arg, Mutation } from 'type-graphql';
-import NoteModel, { Note } from '@relay/shared/src/models/Note';
+import NoteModel, { Note } from '../../models/Note';
 import { CreateNoteInput } from '../../validators/Note/create';
 
 @Resolver(Note)
 class NoteResolver {
   @Query(() => [Note])
-  async AllNotes(): Promise<Note[]> {
+  async allNotes(): Promise<Note[]> {
     return await NoteModel.find({}).exec();
   }
 
