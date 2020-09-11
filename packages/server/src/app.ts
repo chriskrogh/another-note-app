@@ -1,17 +1,15 @@
 import 'reflect-metadata';
 import express from 'express';
-import { graphqlHTTP } from 'express-graphql';
-import { buildSchema } from 'type-graphql';
 import cors from 'cors';
+import { graphqlHTTP } from 'express-graphql';
+import passport from 'passport';
+import build from './schema';
 import connect from './db/config';
-import NoteResolver from './resolvers/Note';
+import AuthRouter from './routers/auth';
 import 'dotenv/config';
 
 const main = async (): Promise<void> => {
-  const schema = await buildSchema({
-    resolvers: [NoteResolver],
-    emitSchemaFile: true,
-  });
+  const schema = await build();
 
   const app = express();
 
@@ -27,7 +25,13 @@ const main = async (): Promise<void> => {
     }),
   );
 
-  await connect();
+  app.use(passport.initialize());
+  app.use(passport.session());
+
+  app.use('/auth', AuthRouter);
+
+  console.log('Connecting to Mongo DB');
+  await connect(() => console.log('Connected!'));
 
   const PORT = 5000;
   app.listen(PORT, () => {
