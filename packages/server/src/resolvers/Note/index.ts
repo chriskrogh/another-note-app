@@ -5,15 +5,15 @@ import { CreateNoteInput } from '../../validators/Note/create';
 @Resolver(Note)
 class NoteResolver {
   @Query(() => [Note])
-  async allNotes(): Promise<Note[]> {
-    return await NoteModel.find({}).exec();
+  async myNotes(@Arg('owner') owner: string): Promise<Note[]> {
+    return await NoteModel.find({ owner }).exec();
   }
 
   @Mutation(() => Note)
   async createNote(
-    @Arg('data') { title, description }: CreateNoteInput,
+    @Arg('data') { title, description, owner }: CreateNoteInput,
   ): Promise<Note> {
-    return await new NoteModel({ title, description }).save();
+    return await NoteModel.create({ title, description, owner });
   }
 }
 

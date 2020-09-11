@@ -1,3 +1,5 @@
+import type { ObjectId } from 'mongodb';
+
 import { Length } from 'class-validator';
 import { InputType, Field } from 'type-graphql';
 
@@ -10,4 +12,7 @@ export class CreateNoteInput {
   @Field()
   @Length(1, 500)
   description!: string;
+
+  @Field(() => String)
+  owner!: ObjectId;
 }

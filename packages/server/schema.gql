@@ -5,6 +5,7 @@
 
 input CreateNoteInput {
   description: String!
+  owner: String!
   title: String!
 }
 
@@ -13,10 +14,12 @@ type Mutation {
 }
 
 type Note {
+  _id: String!
   description: String!
+  owner: String!
   title: String!
 }
 
 type Query {
-  allNotes: [Note!]!
+  myNotes(owner: String!): [Note!]!
 }

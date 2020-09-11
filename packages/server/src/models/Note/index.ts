@@ -1,11 +1,14 @@
-import { Types } from 'mongoose';
+import type { Ref } from '@typegoose/typegoose';
+import type { ObjectId } from 'mongodb';
+
 import { ObjectType, Field } from 'type-graphql';
 import { prop, getModelForClass } from '@typegoose/typegoose';
+import { User } from '../User';
 
 @ObjectType()
 export class Note {
-  @Field()
-  readonly _id!: Types.ObjectId;
+  @Field(() => String)
+  readonly _id!: ObjectId;
 
   @Field()
   @prop({ required: true })
@@ -14,6 +17,10 @@ export class Note {
   @Field()
   @prop({ required: true })
   description!: string;
+
+  @Field(() => String)
+  @prop({ required: true, ref: User })
+  owner!: Ref<User, ObjectId>;
 }
 
 const NoteModel = getModelForClass(Note);
