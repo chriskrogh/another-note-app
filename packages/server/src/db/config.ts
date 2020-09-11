@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const connect = async (callback?: () => void): Promise<void> => {
+const connect = async (callback: () => void): Promise<void> => {
   const mongoUrl =
     process.env.MONGO_URL || `mongodb://127.0.0.1:127.0.0.1/relay`;
 
@@ -11,7 +11,7 @@ const connect = async (callback?: () => void): Promise<void> => {
     useCreateIndex: true,
   });
 
-  callback?.();
+  callback();
 };
 
 export default connect;
