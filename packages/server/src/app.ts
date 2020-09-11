@@ -1,6 +1,8 @@
 import 'reflect-metadata';
 import express from 'express';
 import cors from 'cors';
+import session from 'express-session';
+import cookieParser from 'cookie-parser';
 import { graphqlHTTP } from 'express-graphql';
 import passport from 'passport';
 import build from './schema';
@@ -13,9 +15,22 @@ const main = async (): Promise<void> => {
 
   const app = express();
 
-  if (process.env.NODE_ENV !== 'production') {
-    app.use(cors());
-  }
+  // allow cross origin reqs from client
+  app.use(
+    cors({
+      origin: 'http://localhost:3000',
+    }),
+  );
+
+  // specify session options
+  app.use(
+    session({
+      secret: 'secretcode',
+      resave: false,
+      saveUninitialized: true,
+    }),
+  );
+  app.use(cookieParser('secretcode'));
 
   app.use(
     '/graphql',
