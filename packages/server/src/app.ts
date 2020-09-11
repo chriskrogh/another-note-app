@@ -7,6 +7,7 @@ import { graphqlHTTP } from 'express-graphql';
 import passport from 'passport';
 import build from './schema';
 import connect from './db/config';
+import configure from 'config/passport';
 import AuthRouter from './routers/auth';
 import 'dotenv/config';
 
@@ -32,6 +33,7 @@ const main = async (): Promise<void> => {
   );
   app.use(cookieParser('secretcode'));
 
+  // create graphql endpoint
   app.use(
     '/graphql',
     graphqlHTTP({
@@ -40,8 +42,10 @@ const main = async (): Promise<void> => {
     }),
   );
 
+  // configure passport
   app.use(passport.initialize());
   app.use(passport.session());
+  configure(passport);
 
   app.use('/auth', AuthRouter);
 

@@ -1,7 +1,6 @@
 import express from 'express';
 import FacebookRouter from './facebook';
 import GoogleRouter from './google';
-import '../../middleware/auth';
 
 const router = express.Router();
 
