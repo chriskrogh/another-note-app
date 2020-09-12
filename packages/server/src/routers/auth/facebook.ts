@@ -16,7 +16,9 @@ router.get(
     if (req.session) {
       req.session.user = req.user;
     }
-    res.redirect('/');
+    res.redirect(
+      process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:3000',
+    );
   },
 );
 

@@ -27,6 +27,7 @@ const Auth = () => {
     const fetchUser = async () => {
       try {
         const { data } = await axios.get(AUTH_API_ENDPOINT);
+        localStorage.setItem('id', data._id);
         setUser(data);
         history.push('/');
       } catch (error) {}

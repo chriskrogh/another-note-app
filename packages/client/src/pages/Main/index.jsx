@@ -5,15 +5,16 @@ import Page from '../Page';
 import Notes from '../../components/Notes';
 
 const Main = () => {
+  const userId = localStorage.getItem('id');
   const { user } = useContext(UserContext);
 
-  if (!user) {
+  if (!user && !userId) {
     return <Redirect to="/auth" />;
   }
 
   return (
     <Page>
-      <Notes owner={user._id} />
+      <Notes owner={userId} />
     </Page>
   );
 };
