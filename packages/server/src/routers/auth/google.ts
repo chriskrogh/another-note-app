@@ -5,7 +5,10 @@ export const GOOGLE_AUTH_ENDPOINT = '/api/auth/google';
 
 const router = express.Router();
 
-router.get('/', passport.authenticate('google', { scope: ['profile'] }));
+router.get(
+  '/',
+  passport.authenticate('google', { scope: ['profile', 'email'] }),
+);
 
 router.get(
   '/callback',

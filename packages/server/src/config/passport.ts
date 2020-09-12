@@ -1,9 +1,41 @@
-import type { PassportStatic } from 'passport';
+import type { PassportStatic, Profile } from 'passport';
 
 import { Strategy as FacebookStrategy } from 'passport-facebook';
 import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
 import { FACEBOOK_AUTH_ENDPOINT } from '../routers/auth/facebook';
 import { GOOGLE_AUTH_ENDPOINT } from '../routers/auth/google';
+import UserModel, { User } from '../models/User';
+
+const handleLogin = async (
+  profile: Profile,
+  cb: (error: Error | null, user?: User) => void,
+): Promise<void> => {
+  try {
+    const firstName = profile.name?.givenName;
+    const lastName = profile.name?.familyName;
+    const email = profile.emails?.[0].value;
+
+    if (!firstName || !lastName || !email) {
+      throw new Error('Invalid user data on profile');
+    }
+
+    const existingUser = await UserModel.findOne({ email });
+    if (existingUser) {
+      cb(null, existingUser);
+    } else {
+      cb(
+        null,
+        await UserModel.create({
+          firstName,
+          lastName,
+          email,
+        }),
+      );
+    }
+  } catch (error) {
+    cb(error);
+  }
+};
 
 const configure = (passport: PassportStatic): void => {
   passport.use(
@@ -13,8 +45,8 @@ const configure = (passport: PassportStatic): void => {
         clientSecret: process.env.FACEBOOK_CLIENT_SECRET || 'clientSecret',
         callbackURL: `${FACEBOOK_AUTH_ENDPOINT}/callback`,
       },
-      function (_accessToken, _refreshToken, profile, cb) {
-        return cb(null, profile);
+      async function (_accessToken, _refreshToken, profile, cb) {
+        handleLogin(profile, cb);
       },
     ),
   );
@@ -26,8 +58,8 @@ const configure = (passport: PassportStatic): void => {
         clientSecret: process.env.GOOGLE_CLIENT_SECRET || 'clientSecret',
         callbackURL: `${GOOGLE_AUTH_ENDPOINT}/callback`,
       },
-      function (_accessToken, _refreshToken, profile, cb) {
-        return cb(null, profile);
+      async function (_accessToken, _refreshToken, profile, cb) {
+        handleLogin(profile, cb);
       },
     ),
   );

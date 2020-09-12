@@ -1,7 +1,7 @@
 import type { ObjectId } from 'mongodb';
 
 import { ObjectType, Field } from 'type-graphql';
-import { prop } from '@typegoose/typegoose';
+import { getModelForClass, prop } from '@typegoose/typegoose';
 
 @ObjectType()
 export class User {
@@ -20,3 +20,7 @@ export class User {
   @prop({ required: true })
   email!: string;
 }
+
+const UserModel = getModelForClass(User);
+
+export default UserModel;
