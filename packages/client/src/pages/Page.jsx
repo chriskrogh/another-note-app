@@ -5,7 +5,7 @@ import Header, { HEIGHT, PADDING } from '../components/Header';
 
 const useStyles = makeStyles(({ palette }) => ({
   container: {
-    top: 0,
+    position: 'relative',
     minWidth: '100vw',
     minHeight: `calc(100vh - ${HEIGHT + 2 * PADDING}px)`,
     backgroundColor: palette.background.default,
