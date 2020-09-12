@@ -3,12 +3,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import ThemeToggleButton from '../ThemeToggleButton';
 
-export const HEIGHT = 52;
+export const HEIGHT = 36;
+export const PADDING = 8;
 
 const useStyles = makeStyles(({ spacing, palette }) => ({
   container: {
-    maxHeight: HEIGHT,
-    padding: spacing(1),
+    height: HEIGHT,
+    padding: PADDING,
     backgroundColor: palette.background.paper,
   },
 }));
