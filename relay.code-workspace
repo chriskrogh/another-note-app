@@ -16,5 +16,10 @@
       "name": "shared",
       "path": "./packages/shared"
     }
-  ]
+  ],
+  "settings": {
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "javascript.validate.enable": false,
+    "editor.formatOnSave": true
+  }
 }
