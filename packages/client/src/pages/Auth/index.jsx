@@ -6,6 +6,8 @@ import FacebookIcon from './facebook.png';
 import GoogleIcon from './google.png';
 import Spacer from '../../components/Spacer';
 
+const API_ENDPOINT = '/api/auth';
+
 const useStyles = makeStyles(({ spacing, palette }) => ({
   container: {
     display: 'flex',
@@ -34,7 +36,9 @@ const Auth = () => {
       </Typography>
       <Spacer height={40} />
       <Box className={classes.container}>
-        <Button>
+        <Button
+          onClick={() => window.location.replace(`${API_ENDPOINT}/facebook`)}
+        >
           <img alt="facebook" src={FacebookIcon} className={classes.icon} />
           <Spacer width={8} />
           <Typography className={classes.text}>
@@ -42,7 +46,9 @@ const Auth = () => {
           </Typography>
         </Button>
         <Spacer height={24} />
-        <Button>
+        <Button
+          onClick={() => window.location.replace(`${API_ENDPOINT}/google`)}
+        >
           <img alt="google" src={GoogleIcon} className={classes.icon} />
           <Spacer width={8} />
           <Typography className={classes.text}>Continue with Google</Typography>

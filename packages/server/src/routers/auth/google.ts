@@ -13,8 +13,8 @@ router.get(
 router.get(
   '/callback',
   passport.authenticate('google', { failureRedirect: GOOGLE_AUTH_ENDPOINT }),
-  function (req, res) {
-    res.send(req.user);
+  function (_req, res) {
+    res.redirect('/');
   },
 );
 
