@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Typography } from '@material-ui/core';
 import axios from 'axios';
@@ -22,6 +22,7 @@ const Auth = () => {
   const classes = useStyles();
   const history = useHistory();
   const { setUser } = useContext(UserContext);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -29,23 +30,27 @@ const Auth = () => {
         const { data } = await axios.get(AUTH_API_ENDPOINT);
         setUser(data);
         history.push('/');
-      } catch (error) {}
+      } catch (error) {
+        setLoading(false);
+      }
     };
     fetchUser();
-  });
+  }, [history, setUser]);
 
   return (
-    <Page center>
-      <Typography variant="h1" color="textPrimary" align="center">
-        Another notes app :P
-      </Typography>
-      <Spacer height={40} />
-      <Box className={classes.container}>
-        <AuthButton provider="facebook" />
-        <Spacer height={24} />
-        <AuthButton provider="google" />
-      </Box>
-    </Page>
+    !loading && (
+      <Page center>
+        <Typography variant="h1" color="textPrimary" align="center">
+          Another notes app :P
+        </Typography>
+        <Spacer height={40} />
+        <Box className={classes.container}>
+          <AuthButton provider="facebook" />
+          <Spacer height={24} />
+          <AuthButton provider="google" />
+        </Box>
+      </Page>
+    )
   );
 };
 
