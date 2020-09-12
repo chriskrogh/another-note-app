@@ -30,7 +30,7 @@ const main = async (): Promise<void> => {
   if (process.env.NODE_ENV !== 'production') {
     app.use(
       cors({
-        origin: 'http://localhost:3000',
+        origin: /http\:\/\/localhost:(3000|6006)/,
       }),
     );
   }
