@@ -1,22 +1,30 @@
 import React from 'react';
+import classnames from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
-import Header from '../components/Header';
+import Header, { HEIGHT } from '../components/Header';
 
 const useStyles = makeStyles(({ palette }) => ({
   container: {
     minWidth: '100vw',
-    minHeight: '100vh',
+    minHeight: `calc(100vh - ${HEIGHT}px)`,
     backgroundColor: palette.background.default,
+  },
+  center: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 }));
 
-const Page = ({ children }) => {
+const Page = ({ center, children }) => {
   const classes = useStyles();
   return (
-    <div className={classes.container}>
+    <>
       <Header />
-      {children}
-    </div>
+      <div className={classnames(classes.container, center && classes.center)}>
+        {children}
+      </div>
+    </>
   );
 };
 
