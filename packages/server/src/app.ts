@@ -2,6 +2,7 @@ import type { Request, Response } from 'express';
 
 import 'reflect-metadata';
 import express from 'express';
+import session from 'express-session';
 import cors from 'cors';
 import { graphqlHTTP } from 'express-graphql';
 import path from 'path';
@@ -16,6 +17,14 @@ const main = async (): Promise<void> => {
   const schema = await build();
 
   const app = express();
+
+  app.use(
+    session({
+      secret: process.env.APP_SECRET || 'secret',
+      resave: false,
+      saveUninitialized: true,
+    }),
+  );
 
   // allow cross origin reqs from client in development
   if (process.env.NODE_ENV !== 'production') {

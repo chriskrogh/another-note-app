@@ -12,7 +12,10 @@ router.get(
   passport.authenticate('facebook', {
     failureRedirect: FACEBOOK_AUTH_ENDPOINT,
   }),
-  function (_req, res) {
+  function (req, res) {
+    if (req.session) {
+      req.session.user = req.user;
+    }
     res.redirect('/');
   },
 );

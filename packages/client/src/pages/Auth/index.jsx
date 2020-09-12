@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, Button, Typography } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import { UserContext } from '../../context/user/state';
 import Page from '../Page';
-import FacebookIcon from './facebook.png';
-import GoogleIcon from './google.png';
 import Spacer from '../../components/Spacer';
-
-const API_ENDPOINT = '/api/auth';
+import AuthButton from '../../components/AuthButton';
+import { AUTH_API_ENDPOINT } from '../../utils/constants';
 
 const useStyles = makeStyles(({ spacing, palette }) => ({
   container: {
@@ -15,20 +16,24 @@ const useStyles = makeStyles(({ spacing, palette }) => ({
     padding: spacing(2),
     backgroundColor: palette.background.paper,
   },
-  button: {
-    display: 'flex',
-  },
-  icon: {
-    width: 30,
-    height: 30,
-  },
-  text: {
-    textTransform: 'none',
-  },
 }));
 
 const Auth = () => {
   const classes = useStyles();
+  const history = useHistory();
+  const { setUser } = useContext(UserContext);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const { data } = await axios.get(AUTH_API_ENDPOINT);
+        setUser(data);
+        history.push('/');
+      } catch (error) {}
+    };
+    fetchUser();
+  });
+
   return (
     <Page center>
       <Typography variant="h1" color="textPrimary" align="center">
@@ -36,23 +41,9 @@ const Auth = () => {
       </Typography>
       <Spacer height={40} />
       <Box className={classes.container}>
-        <Button
-          onClick={() => window.location.replace(`${API_ENDPOINT}/facebook`)}
-        >
-          <img alt="facebook" src={FacebookIcon} className={classes.icon} />
-          <Spacer width={8} />
-          <Typography className={classes.text}>
-            Continue with Facebook
-          </Typography>
-        </Button>
+        <AuthButton provider="facebook" />
         <Spacer height={24} />
-        <Button
-          onClick={() => window.location.replace(`${API_ENDPOINT}/google`)}
-        >
-          <img alt="google" src={GoogleIcon} className={classes.icon} />
-          <Spacer width={8} />
-          <Typography className={classes.text}>Continue with Google</Typography>
-        </Button>
+        <AuthButton provider="google" />
       </Box>
     </Page>
   );
