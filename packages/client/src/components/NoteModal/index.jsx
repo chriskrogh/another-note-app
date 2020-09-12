@@ -13,15 +13,31 @@ const useStyles = makeStyles(({ spacing, palette, breakpoints }) => ({
     borderRadius: 8,
     width: '50vw',
     maxHeight: '70vh',
-    padding: spacing(4),
     [breakpoints.down('sm')]: {
       width: '90vw',
       maxHeight: '90vh',
-      padding: spacing(2),
+    },
+  },
+  textContainer: {
+    padding: `0 ${spacing(4)}px`,
+    [breakpoints.down('sm')]: {
+      padding: `0 ${spacing(2)}px`,
     },
   },
   textField: {
     width: '100%',
+  },
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: `0 ${spacing(4)}px ${spacing(4)}px ${spacing(4)}px`,
+    [breakpoints.down('sm')]: {
+      padding: `0 ${spacing(2)}px ${spacing(2)}px ${spacing(2)}px`,
+    },
+  },
+  deleteButton: {
+    background: palette.error.main,
+    opacity: 0.9,
   },
   saveButton: {
     background: palette.primary.main,
@@ -38,7 +54,12 @@ const NoteModal = ({ isOpen, handleClose, note }) => {
     <Modal open={isOpen} handleClose={handleClose}>
       <Box display="flex" justifyContent="center" alignItems="center">
         <Box className={classes.container}>
-          <Box>
+          <Box display="flex" justifyContent="flex-end">
+            <Button onClick={handleClose}>
+              <CloseIcon />
+            </Button>
+          </Box>
+          <Box className={classes.textContainer}>
             <TextField
               className={classes.textField}
               inputProps={{ style: { fontSize: 40 } }}
@@ -62,8 +83,8 @@ const NoteModal = ({ isOpen, handleClose, note }) => {
             />
           </Box>
           <Spacer height={16} />
-          <Box display="flex" justifyContent="space-between">
-            <Button>Cancel</Button>
+          <Box className={classes.buttonContainer}>
+            <Button className={classes.deleteButton}>Delete</Button>
             <Button className={classes.saveButton}>Save</Button>
           </Box>
         </Box>
