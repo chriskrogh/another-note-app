@@ -14,22 +14,12 @@ const Provider = ({ children }) => {
     dispatch({ type: ActionTypes.UNSET_USER });
   };
 
-  const setToken = (token) => {
-    dispatch({ type: ActionTypes.SET_TOKEN, payload: token });
-  };
-
-  const unsetToken = () => {
-    dispatch({ type: ActionTypes.UNSET_TOKEN });
-  };
-
   return (
     <UserContext.Provider
       value={{
         ...state,
         setUser,
         unsetUser,
-        setToken,
-        unsetToken,
       }}
     >
       {children}
