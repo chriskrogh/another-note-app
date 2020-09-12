@@ -11,8 +11,8 @@ const handleLogin = async (
   cb: (error: Error | null, user?: User) => void,
 ): Promise<void> => {
   try {
-    const firstName = profile.name?.givenName;
-    const lastName = profile.name?.familyName;
+    const firstName = profile.displayName.split(' ')[0];
+    const lastName = profile.displayName.split(' ')[1];
     const email = profile.emails?.[0].value;
 
     if (!firstName || !lastName || !email) {
@@ -44,6 +44,7 @@ const configure = (passport: PassportStatic): void => {
         clientID: process.env.FACEBOOK_CLIENT_ID || 'clientId',
         clientSecret: process.env.FACEBOOK_CLIENT_SECRET || 'clientSecret',
         callbackURL: `${FACEBOOK_AUTH_ENDPOINT}/callback`,
+        profileFields: ['displayName', 'email'],
       },
       async function (_accessToken, _refreshToken, profile, cb) {
         handleLogin(profile, cb);
