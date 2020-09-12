@@ -14,3 +14,9 @@ const note = {
 };
 
 export const Base = () => <Note note={note} />;
+
+export const Mobile = () => (
+  <div style={{ width: 375 }}>
+    <Note note={note} />
+  </div>
+);

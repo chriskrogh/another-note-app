@@ -8,7 +8,7 @@ import Note from './Note';
 const useStyles = makeStyles(({ spacing, breakpoints }) => ({
   container: {
     display: 'flex',
-    padding: spacing(4),
+    flexWrap: 'wrap',
     [breakpoints.down('sm')]: {
       flexDirection: 'column',
       padding: spacing(2),
