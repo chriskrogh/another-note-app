@@ -1,13 +1,53 @@
 import React from 'react';
-import { useTheme } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
+import { makeStyles } from '@material-ui/core/styles';
+import { Box, Button, Typography } from '@material-ui/core';
 import Page from '../Page';
+import FacebookIcon from './facebook.png';
+import GoogleIcon from './google.png';
+import Spacer from '../../components/Spacer';
+
+const useStyles = makeStyles(({ spacing, palette }) => ({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    padding: spacing(2),
+    backgroundColor: palette.background.paper,
+  },
+  button: {
+    display: 'flex',
+  },
+  icon: {
+    width: 30,
+    height: 30,
+  },
+  text: {
+    textTransform: 'none',
+  },
+}));
 
 const Auth = () => {
-  const { spacing, palette } = useTheme();
+  const classes = useStyles();
   return (
     <Page center>
-      <Box padding={spacing(2)} bgcolor={palette.background.paper}></Box>
+      <Typography variant="h1" color="textPrimary" align="center">
+        Another notes app :P
+      </Typography>
+      <Spacer height={40} />
+      <Box className={classes.container}>
+        <Button>
+          <img alt="facebook" src={FacebookIcon} className={classes.icon} />
+          <Spacer width={8} />
+          <Typography className={classes.text}>
+            Continue with Facebook
+          </Typography>
+        </Button>
+        <Spacer height={24} />
+        <Button>
+          <img alt="google" src={GoogleIcon} className={classes.icon} />
+          <Spacer width={8} />
+          <Typography className={classes.text}>Continue with Google</Typography>
+        </Button>
+      </Box>
     </Page>
   );
 };
