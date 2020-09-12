@@ -10,11 +10,6 @@ router.use('/google', GoogleRouter);
 router.get('/', (req, res) => {
   const user = req.session?.user;
   if (user) {
-    req.session?.destroy((err) => {
-      if (err) {
-        console.log('Problem destroying session', err);
-      }
-    });
     res.send(user);
   } else {
     res.sendStatus(400);
