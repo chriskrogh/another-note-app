@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Header from '../components/Header';
 
 const useStyles = makeStyles(({ palette }) => ({
   container: {
@@ -11,7 +12,12 @@ const useStyles = makeStyles(({ palette }) => ({
 
 const Page = ({ children }) => {
   const classes = useStyles();
-  return <div className={classes.container}>{children}</div>;
+  return (
+    <div className={classes.container}>
+      <Header />
+      {children}
+    </div>
+  );
 };
 
 export default Page;
