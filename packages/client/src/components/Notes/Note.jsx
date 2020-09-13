@@ -4,6 +4,7 @@ import { Box, Typography } from '@material-ui/core';
 import { NoteContext } from '../../context/note/state';
 
 const SIZE = 350;
+const BORDER_WIDTH = 2;
 
 const useStyles = makeStyles(({ spacing, palette, breakpoints }) => ({
   container: {
@@ -13,12 +14,14 @@ const useStyles = makeStyles(({ spacing, palette, breakpoints }) => ({
     margin: spacing(1),
     width: SIZE,
     maxHeight: 200,
-    border: `2px solid ${palette.primary.main}`,
+    border: `${BORDER_WIDTH}px solid ${palette.primary.main}`,
     borderRadius: 8,
     cursor: 'pointer',
     overflow: 'hidden',
     [breakpoints.down('sm')]: {
-      width: window.innerWidth - 2 * spacing(1),
+      width:
+        window.innerWidth -
+        (2 * spacing(2) + 4 * spacing(1) + 2 * BORDER_WIDTH),
     },
     '&:hover': {
       boxShadow: `6px 4px ${palette.secondary.main}`,

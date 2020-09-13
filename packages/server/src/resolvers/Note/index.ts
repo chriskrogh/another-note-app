@@ -22,7 +22,10 @@ class NoteResolver {
     @Arg('id') id: string,
     @Arg('data') { title, description }: UpdateNoteInput,
   ): Promise<void> {
-    await NoteModel.findByIdAndUpdate(id, { title, description });
+    const updates = { title, description };
+    if (!title) delete updates['title'];
+    if (!description) delete updates['description'];
+    await NoteModel.findByIdAndUpdate(id, updates);
   }
 
   @Mutation(() => Note, { nullable: true })

@@ -5,6 +5,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import { NoteContext } from '../../context/note/state';
 import Spacer from '../Spacer';
 import useCreateNote from '../../mutations/useCreateNote';
+import useUpdateNote from '../../mutations/useUpdateNote';
+import useDeleteNote from '../../mutations/useDeleteNote';
 
 const useStyles = makeStyles(({ spacing, palette, breakpoints }) => ({
   container: {
@@ -53,6 +55,8 @@ const NoteModal = () => {
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
   const createNote = useCreateNote();
+  const updateNote = useUpdateNote();
+  const deleteNote = useDeleteNote();
 
   useEffect(() => {
     if (note && (title == null || description == null)) {
@@ -67,12 +71,21 @@ const NoteModal = () => {
     unsetNote();
   };
 
+  const handleDelete = () => {
+    deleteNote(note?._id);
+    unset();
+  };
+
   const handleSave = () => {
-    createNote({
-      ...note,
-      title,
-      description,
-    });
+    if (note?._id) {
+      updateNote(note._id, { title, description });
+    } else {
+      createNote({
+        ...note,
+        title,
+        description,
+      });
+    }
     unset();
   };
 
@@ -116,7 +129,9 @@ const NoteModal = () => {
           <Spacer height={16} />
           <Box className={classes.buttonContainer}>
             {note?._id ? (
-              <Button className={classes.deleteButton}>Delete</Button>
+              <Button className={classes.deleteButton} onClick={handleDelete}>
+                Delete
+              </Button>
             ) : (
               <Spacer width={1} />
             )}
