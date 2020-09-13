@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Modal, Box, TextField, Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
@@ -50,11 +50,22 @@ const useStyles = makeStyles(({ spacing, palette, breakpoints }) => ({
 const NoteModal = () => {
   const classes = useStyles();
   const { note, unsetNote } = useContext(NoteContext);
-  const [title, setTitle] = useState(note?.title);
-  const [description, setDescription] = useState(note?.description);
+  const [title, setTitle] = useState();
+  const [description, setDescription] = useState();
   const createNote = useCreateNote();
 
-  console.log(note);
+  useEffect(() => {
+    if (note && (title == null || description == null)) {
+      setTitle(note.title);
+      setDescription(note.description);
+    }
+  }, [note, title, description]);
+
+  const unset = () => {
+    setTitle();
+    setDescription();
+    unsetNote();
+  };
 
   const handleSave = () => {
     createNote({
@@ -62,11 +73,11 @@ const NoteModal = () => {
       title,
       description,
     });
-    unsetNote();
+    unset();
   };
 
   return (
-    <Modal open={note !== undefined} handleClose={unsetNote}>
+    <Modal open={note !== undefined} handleClose={unset}>
       <Box
         display="flex"
         justifyContent="center"
@@ -75,7 +86,7 @@ const NoteModal = () => {
       >
         <Box className={classes.container}>
           <Box display="flex" justifyContent="flex-end">
-            <Button onClick={unsetNote}>
+            <Button onClick={unset}>
               <CloseIcon />
             </Button>
           </Box>

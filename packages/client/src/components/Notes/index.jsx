@@ -23,6 +23,7 @@ const Notes = ({ owner }) => {
     graphql`
       query NotesQuery($owner: String!) {
         myNotes(owner: $owner) {
+          _id
           title
           description
         }

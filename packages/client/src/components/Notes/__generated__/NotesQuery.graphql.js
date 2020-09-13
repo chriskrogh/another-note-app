@@ -13,6 +13,7 @@ export type NotesQueryVariables = {|
 |};
 export type NotesQueryResponse = {|
   +myNotes: $ReadOnlyArray<{|
+    +_id: string,
     +title: string,
     +description: string,
   |}>
@@ -29,6 +30,7 @@ query NotesQuery(
   $owner: String!
 ) {
   myNotes(owner: $owner) {
+    _id
     title
     description
   }
@@ -58,6 +60,13 @@ v1 = [
     "name": "myNotes",
     "plural": true,
     "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "_id",
+        "storageKey": null
+      },
       {
         "alias": null,
         "args": null,
@@ -94,16 +103,16 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "8509e68297c60ec5a875ca4c3248146e",
+    "cacheID": "fc8bfb2ee65bb7c752e420a189055da0",
     "id": null,
     "metadata": {},
     "name": "NotesQuery",
     "operationKind": "query",
-    "text": "query NotesQuery(\n  $owner: String!\n) {\n  myNotes(owner: $owner) {\n    title\n    description\n  }\n}\n"
+    "text": "query NotesQuery(\n  $owner: String!\n) {\n  myNotes(owner: $owner) {\n    _id\n    title\n    description\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '5fc93283c40d1f8e8cfac820a3404c2c';
+(node/*: any*/).hash = '85365a2d642622814d98839ca1b456ff';
 
 module.exports = node;
