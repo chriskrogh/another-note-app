@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
   } else if (user) {
     res.send(user);
   } else {
-    res.sendStatus(400);
+    res.sendStatus(401);
   }
 });
 
