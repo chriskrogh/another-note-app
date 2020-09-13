@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Modal, Box, TextField, Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
+import { UserContext } from '../../context/user/state';
 import { NoteContext } from '../../context/note/state';
 import Spacer from '../Spacer';
 import useCreateNote from '../../mutations/useCreateNote';
@@ -51,6 +52,7 @@ const useStyles = makeStyles(({ spacing, palette, breakpoints }) => ({
 
 const NoteModal = () => {
   const classes = useStyles();
+  const { user } = useContext(UserContext);
   const { note, unsetNote } = useContext(NoteContext);
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
@@ -81,9 +83,9 @@ const NoteModal = () => {
       updateNote(note._id, { title, description });
     } else {
       createNote({
-        ...note,
         title,
         description,
+        owner: user._id,
       });
     }
     unset();
