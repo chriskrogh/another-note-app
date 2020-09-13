@@ -8,7 +8,7 @@ import { graphqlHTTP } from 'express-graphql';
 import path from 'path';
 import passport from 'passport';
 import build from './schema';
-import connect from './db/config';
+import connect from './config/db';
 import configure from './config/passport';
 import routers from './routers';
 import 'dotenv/config';
@@ -30,7 +30,7 @@ const main = async (): Promise<void> => {
   if (process.env.NODE_ENV !== 'production') {
     app.use(
       cors({
-        origin: /http\:\/\/localhost:(3000|6006)/,
+        origin: /http:\/\/localhost:(3000|6006)/,
       }),
     );
   }
