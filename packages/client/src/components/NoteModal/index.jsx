@@ -76,6 +76,7 @@ const NoteModal = () => {
   const handleDelete = () => {
     deleteNote(note?._id);
     unset();
+    window.location.replace('/');
   };
 
   const handleSave = () => {
@@ -89,6 +90,7 @@ const NoteModal = () => {
       });
     }
     unset();
+    window.location.replace('/');
   };
 
   return (
