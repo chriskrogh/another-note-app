@@ -7,11 +7,11 @@ const Provider = ({ children }) => {
   const [state, dispatch] = useReducer(Reducer, initialState);
 
   const setNote = (note) => {
-    dispatch({ type: ActionTypes.SET_USER, payload: note });
+    dispatch({ type: ActionTypes.SET_NOTE, payload: note });
   };
 
   const unsetNote = () => {
-    dispatch({ type: ActionTypes.UNSET_USER });
+    dispatch({ type: ActionTypes.UNSET_NOTE });
   };
 
   return (

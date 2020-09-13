@@ -1,8 +1,11 @@
 import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import { UserContext } from '../../context/user/state';
+import NoteContextProvider from '../../context/note/provider';
 import Page from '../Page';
 import Notes from '../../components/Notes';
+import CreateNoteButton from '../../components/CreateNoteButton';
+import NoteModal from '../../components/NoteModal';
 
 const Main = () => {
   const { user } = useContext(UserContext);
@@ -12,9 +15,13 @@ const Main = () => {
   }
 
   return (
-    <Page>
-      <Notes owner={user._id} />
-    </Page>
+    <NoteContextProvider>
+      <Page>
+        <Notes owner={user._id} />
+        <CreateNoteButton />
+      </Page>
+      <NoteModal />
+    </NoteContextProvider>
   );
 };
 

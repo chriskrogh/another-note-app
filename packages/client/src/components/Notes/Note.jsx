@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Typography } from '@material-ui/core';
+import { NoteContext } from '../../context/note/state';
 
 const SIZE = 350;
 
@@ -28,8 +29,10 @@ const useStyles = makeStyles(({ spacing, palette, breakpoints }) => ({
 
 const Note = ({ note }) => {
   const classes = useStyles();
+  const { setNote } = useContext(NoteContext);
+
   return (
-    <Box className={classes.container}>
+    <Box className={classes.container} onClick={() => setNote(note)}>
       <Typography variant="h4" color="primary">
         {note.title}
       </Typography>

@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Modal, Box, TextField, Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
+import { NoteContext } from '../../context/note/state';
 import Spacer from '../Spacer';
+import useCreateNote from '../../mutations/useCreateNote';
 
 const useStyles = makeStyles(({ spacing, palette, breakpoints }) => ({
   container: {
@@ -45,17 +47,35 @@ const useStyles = makeStyles(({ spacing, palette, breakpoints }) => ({
   },
 }));
 
-const NoteModal = ({ isOpen, handleClose, note }) => {
+const NoteModal = () => {
   const classes = useStyles();
-  const [title, setTitle] = useState(note.title);
-  const [description, setDescription] = useState(note.description);
+  const { note, unsetNote } = useContext(NoteContext);
+  const [title, setTitle] = useState(note?.title);
+  const [description, setDescription] = useState(note?.description);
+  const createNote = useCreateNote();
+
+  console.log(note);
+
+  const handleSave = () => {
+    createNote({
+      ...note,
+      title,
+      description,
+    });
+    unsetNote();
+  };
 
   return (
-    <Modal open={isOpen} handleClose={handleClose}>
-      <Box display="flex" justifyContent="center" alignItems="center">
+    <Modal open={note !== undefined} handleClose={unsetNote}>
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        height="100vh"
+      >
         <Box className={classes.container}>
           <Box display="flex" justifyContent="flex-end">
-            <Button onClick={handleClose}>
+            <Button onClick={unsetNote}>
               <CloseIcon />
             </Button>
           </Box>
@@ -84,8 +104,14 @@ const NoteModal = ({ isOpen, handleClose, note }) => {
           </Box>
           <Spacer height={16} />
           <Box className={classes.buttonContainer}>
-            <Button className={classes.deleteButton}>Delete</Button>
-            <Button className={classes.saveButton}>Save</Button>
+            {note?._id ? (
+              <Button className={classes.deleteButton}>Delete</Button>
+            ) : (
+              <Spacer width={1} />
+            )}
+            <Button className={classes.saveButton} onClick={handleSave}>
+              Save
+            </Button>
           </Box>
         </Box>
       </Box>
