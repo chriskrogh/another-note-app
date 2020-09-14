@@ -41,7 +41,7 @@ const Auth = () => {
     !loading && (
       <Page center>
         <Typography variant="h1" color="textPrimary" align="center">
-          Another notes app :P
+          Another note app :P
         </Typography>
         <Spacer height={40} />
         <Box className={classes.container}>
