@@ -5,9 +5,7 @@ const useDeleteNote = () => {
   const [commit] = useMutation(
     graphql`
       mutation useDeleteNoteMutation($id: String!) {
-        deleteNote(id: $id) {
-          _id
-        }
+        deleteNote(id: $id)
       }
     `,
   );

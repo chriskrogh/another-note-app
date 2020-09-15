@@ -11,8 +11,8 @@ input CreateNoteInput {
 
 type Mutation {
   createNote(data: CreateNoteInput!): Note!
-  deleteNote(id: String!): Note
-  updateNote(data: UpdateNoteInput!, id: String!): Note
+  deleteNote(id: String!): Boolean
+  updateNote(data: UpdateNoteInput!, id: String!): Boolean
 }
 
 type Note {
@@ -24,6 +24,10 @@ type Note {
 
 type Query {
   myNotes(owner: String!): [Note!]!
+}
+
+type Subscription {
+  subToMyNotes(owner: String!): [Note!]!
 }
 
 input UpdateNoteInput {

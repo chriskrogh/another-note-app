@@ -22,7 +22,7 @@ class NoteResolver {
 
   @Subscription(() => [Note], {
     topics: NOTES_KEY,
-    filter: ({ payload, args }) => args.owner === payload,
+    filter: ({ payload, args }) => args.owner === String(payload),
   })
   async subToMyNotes(@Arg('owner') owner: string): Promise<Note[]> {
     return await NoteModel.find({ owner });
@@ -38,26 +38,28 @@ class NoteResolver {
     return note;
   }
 
-  @Mutation(() => Note, { nullable: true })
+  @Mutation(() => Boolean, { nullable: true })
   async updateNote(
     @Arg('id') id: string,
     @Arg('data') { title, description }: UpdateNoteInput,
     @PubSub() pubSub: PubSubEngine,
-  ): Promise<void> {
+  ): Promise<boolean> {
     const updates = { title, description };
     if (!title) delete updates['title'];
     if (!description) delete updates['description'];
-    await NoteModel.findByIdAndUpdate(id, updates);
-    await pubSub.publish(NOTES_KEY, id);
+    const note = await NoteModel.findByIdAndUpdate(id, updates);
+    await pubSub.publish(NOTES_KEY, note?.owner);
+    return true;
   }
 
-  @Mutation(() => Note, { nullable: true })
+  @Mutation(() => Boolean, { nullable: true })
   async deleteNote(
     @Arg('id') id: string,
     @PubSub() pubSub: PubSubEngine,
-  ): Promise<void> {
-    await NoteModel.findByIdAndDelete(id);
-    await pubSub.publish(NOTES_KEY, id);
+  ): Promise<boolean> {
+    const note = await NoteModel.findByIdAndDelete(id);
+    await pubSub.publish(NOTES_KEY, note?.owner);
+    return true;
   }
 }
 

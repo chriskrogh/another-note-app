@@ -8,25 +8,25 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-export type NotesQueryVariables = {|
+export type useNotesQueryVariables = {|
   owner: string
 |};
-export type NotesQueryResponse = {|
+export type useNotesQueryResponse = {|
   +myNotes: $ReadOnlyArray<{|
     +_id: string,
     +title: string,
     +description: string,
   |}>
 |};
-export type NotesQuery = {|
-  variables: NotesQueryVariables,
-  response: NotesQueryResponse,
+export type useNotesQuery = {|
+  variables: useNotesQueryVariables,
+  response: useNotesQueryResponse,
 |};
 */
 
 
 /*
-query NotesQuery(
+query useNotesQuery(
   $owner: String!
 ) {
   myNotes(owner: $owner) {
@@ -90,7 +90,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "NotesQuery",
+    "name": "useNotesQuery",
     "selections": (v1/*: any*/),
     "type": "Query",
     "abstractKey": null
@@ -99,20 +99,20 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "NotesQuery",
+    "name": "useNotesQuery",
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "fc8bfb2ee65bb7c752e420a189055da0",
+    "cacheID": "2cbdf31c51c4308c83401659cae91a77",
     "id": null,
     "metadata": {},
-    "name": "NotesQuery",
+    "name": "useNotesQuery",
     "operationKind": "query",
-    "text": "query NotesQuery(\n  $owner: String!\n) {\n  myNotes(owner: $owner) {\n    _id\n    title\n    description\n  }\n}\n"
+    "text": "query useNotesQuery(\n  $owner: String!\n) {\n  myNotes(owner: $owner) {\n    _id\n    title\n    description\n  }\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '85365a2d642622814d98839ca1b456ff';
+(node/*: any*/).hash = '23c8d5cedecd7467043631bd74cd146d';
 
 module.exports = node;

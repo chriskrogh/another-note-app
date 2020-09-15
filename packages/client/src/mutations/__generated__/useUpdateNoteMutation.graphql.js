@@ -17,9 +17,7 @@ export type useUpdateNoteMutationVariables = {|
   data: UpdateNoteInput,
 |};
 export type useUpdateNoteMutationResponse = {|
-  +updateNote: ?{|
-    +_id: string
-  |}
+  +updateNote: ?boolean
 |};
 export type useUpdateNoteMutation = {|
   variables: useUpdateNoteMutationVariables,
@@ -33,9 +31,7 @@ mutation useUpdateNoteMutation(
   $id: String!
   $data: UpdateNoteInput!
 ) {
-  updateNote(id: $id, data: $data) {
-    _id
-  }
+  updateNote(id: $id, data: $data)
 }
 */
 
@@ -65,19 +61,8 @@ v2 = [
         "variableName": "id"
       }
     ],
-    "concreteType": "Note",
-    "kind": "LinkedField",
+    "kind": "ScalarField",
     "name": "updateNote",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "_id",
-        "storageKey": null
-      }
-    ],
     "storageKey": null
   }
 ];
@@ -105,16 +90,16 @@ return {
     "selections": (v2/*: any*/)
   },
   "params": {
-    "cacheID": "a28daadef1749ddb5d17c222aa889a01",
+    "cacheID": "e8fb10204d52a92edb1e6865825f78fe",
     "id": null,
     "metadata": {},
     "name": "useUpdateNoteMutation",
     "operationKind": "mutation",
-    "text": "mutation useUpdateNoteMutation(\n  $id: String!\n  $data: UpdateNoteInput!\n) {\n  updateNote(id: $id, data: $data) {\n    _id\n  }\n}\n"
+    "text": "mutation useUpdateNoteMutation(\n  $id: String!\n  $data: UpdateNoteInput!\n) {\n  updateNote(id: $id, data: $data)\n}\n"
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'd3dbbb32f2d19868cca279d8c9e3dbf7';
+(node/*: any*/).hash = 'd0a00ef85b96777fe334ee214811e4a4';
 
 module.exports = node;

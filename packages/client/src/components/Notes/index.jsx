@@ -1,8 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import graphql from 'babel-plugin-relay/macro';
-import { useLazyLoadQuery } from 'react-relay/hooks';
+import useNotes from '../../queries/useNotes';
 import Note from './Note';
 
 const useStyles = makeStyles(({ spacing, breakpoints }) => ({
@@ -18,23 +17,11 @@ const useStyles = makeStyles(({ spacing, breakpoints }) => ({
 
 const Notes = ({ owner }) => {
   const classes = useStyles();
-
-  const data = useLazyLoadQuery(
-    graphql`
-      query NotesQuery($owner: String!) {
-        myNotes(owner: $owner) {
-          _id
-          title
-          description
-        }
-      }
-    `,
-    { owner },
-  );
+  const notes = useNotes(owner);
 
   return (
     <Box className={classes.container}>
-      {data?.myNotes.map((note) => (
+      {notes.map((note) => (
         <Note key={note._id} note={note} />
       ))}
     </Box>

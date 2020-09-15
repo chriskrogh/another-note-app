@@ -7,6 +7,9 @@ import cors from 'cors';
 import { graphqlHTTP } from 'express-graphql';
 import path from 'path';
 import passport from 'passport';
+import { createServer } from 'http';
+import { SubscriptionServer } from 'subscriptions-transport-ws';
+import { execute, subscribe } from 'graphql';
 import build from './schema';
 import connect from './config/db';
 import configure from './config/passport';
@@ -15,7 +18,6 @@ import 'dotenv/config';
 
 const main = async (): Promise<void> => {
   const schema = await build();
-
   const app = express();
 
   app.use(
@@ -62,6 +64,23 @@ const main = async (): Promise<void> => {
   app.get('*', (_req: Request, res: Response) => {
     res.sendFile(path.join(CLIENT_DIR, 'index.html'));
   });
+
+  // Create WebSocket listener server
+  const websocketServer = createServer((_req, res) => {
+    res.writeHead(404);
+    res.end();
+  });
+
+  // Bind it to port and start listening
+  const WS_PORT = 4000;
+  websocketServer.listen(WS_PORT, () =>
+    console.log(`Running WS server on http://localhost:${WS_PORT}`),
+  );
+
+  SubscriptionServer.create(
+    { schema, execute, subscribe },
+    { server: websocketServer, path: '/graphql' },
+  );
 
   const PORT = 5000;
   app.listen(PORT, () => {

@@ -5,9 +5,7 @@ const useUpdateNote = () => {
   const [commit] = useMutation(
     graphql`
       mutation useUpdateNoteMutation($id: String!, $data: UpdateNoteInput!) {
-        updateNote(id: $id, data: $data) {
-          _id
-        }
+        updateNote(id: $id, data: $data)
       }
     `,
   );
