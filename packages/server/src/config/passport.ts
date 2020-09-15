@@ -6,7 +6,9 @@ import { FACEBOOK_AUTH_ENDPOINT } from '../routers/auth/facebook';
 import { GOOGLE_AUTH_ENDPOINT } from '../routers/auth/google';
 import UserModel, { User } from '../models/User';
 
-const handleLogin = async (
+const verify = async (
+  _accessToken: string,
+  _refreshToken: string,
   profile: Profile,
   cb: (error: Error | null, user?: User) => void,
 ): Promise<void> => {
@@ -46,9 +48,7 @@ const configure = (passport: PassportStatic): void => {
         callbackURL: `${FACEBOOK_AUTH_ENDPOINT}/callback`,
         profileFields: ['displayName', 'email'],
       },
-      async function (_accessToken, _refreshToken, profile, cb) {
-        handleLogin(profile, cb);
-      },
+      verify,
     ),
   );
 
@@ -59,9 +59,7 @@ const configure = (passport: PassportStatic): void => {
         clientSecret: process.env.GOOGLE_CLIENT_SECRET || 'clientSecret',
         callbackURL: `${GOOGLE_AUTH_ENDPOINT}/callback`,
       },
-      async function (_accessToken, _refreshToken, profile, cb) {
-        handleLogin(profile, cb);
-      },
+      verify,
     ),
   );
 
