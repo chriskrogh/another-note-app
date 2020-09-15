@@ -31,7 +31,6 @@ const useNotes = (owner) => {
       `,
       variables: { owner },
       onNext: (response) => {
-        console.log(response);
         const newNotes = response?.subToMyNotes;
         if (newNotes) setNotes(newNotes);
       },
