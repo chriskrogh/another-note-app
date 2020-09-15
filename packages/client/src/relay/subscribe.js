@@ -4,7 +4,7 @@ import { SubscriptionClient } from 'subscriptions-transport-ws';
 export const WS_GRAPHQL_ENDPOINT =
   process.env.NODE_ENV !== 'production'
     ? 'ws://localhost:4000/ws'
-    : 'ws://anothernoteapp.com/ws';
+    : 'wss://anothernoteapp.com/ws';
 
 const client = new SubscriptionClient(WS_GRAPHQL_ENDPOINT, {
   reconnect: true,
