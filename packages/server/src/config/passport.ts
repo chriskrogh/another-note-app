@@ -5,6 +5,7 @@ import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
 import { FACEBOOK_AUTH_ENDPOINT } from '../routers/auth/facebook';
 import { GOOGLE_AUTH_ENDPOINT } from '../routers/auth/google';
 import UserModel, { User } from '../models/User';
+import { BASE_URL } from '../utils/constants';
 
 const verify = async (
   _accessToken: string,
@@ -45,7 +46,7 @@ const configure = (passport: PassportStatic): void => {
       {
         clientID: process.env.FACEBOOK_CLIENT_ID || 'clientId',
         clientSecret: process.env.FACEBOOK_CLIENT_SECRET || 'clientSecret',
-        callbackURL: `${FACEBOOK_AUTH_ENDPOINT}/callback`,
+        callbackURL: `${BASE_URL}/${FACEBOOK_AUTH_ENDPOINT}/callback`,
         profileFields: ['displayName', 'email'],
       },
       verify,
@@ -57,7 +58,7 @@ const configure = (passport: PassportStatic): void => {
       {
         clientID: process.env.GOOGLE_CLIENT_ID || 'clientId',
         clientSecret: process.env.GOOGLE_CLIENT_SECRET || 'clientSecret',
-        callbackURL: `${GOOGLE_AUTH_ENDPOINT}/callback`,
+        callbackURL: `${BASE_URL}/${GOOGLE_AUTH_ENDPOINT}/callback`,
       },
       verify,
     ),

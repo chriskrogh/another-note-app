@@ -1,7 +1,8 @@
 import express from 'express';
 import passport from 'passport';
+import { BASE_URL } from '../../utils/constants';
 
-export const GOOGLE_AUTH_ENDPOINT = '/api/auth/google';
+export const GOOGLE_AUTH_ENDPOINT = 'api/auth/google';
 
 const router = express.Router();
 
@@ -12,14 +13,14 @@ router.get(
 
 router.get(
   '/callback',
-  passport.authenticate('google', { failureRedirect: GOOGLE_AUTH_ENDPOINT }),
+  passport.authenticate('google', {
+    failureRedirect: `${BASE_URL}/${GOOGLE_AUTH_ENDPOINT}`,
+  }),
   function (req, res) {
     if (req.session) {
       req.session.user = req.user;
     }
-    res.redirect(
-      process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:3000',
-    );
+    res.redirect(BASE_URL);
   },
 );
 
