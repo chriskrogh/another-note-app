@@ -15,7 +15,8 @@
     "react-relay": "^0.0.0-experimental-183bdd28",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
-    "relay-runtime": "^10.0.1"
+    "relay-runtime": "^10.0.1",
+    "subscriptions-transport-ws": "^0.9.18"
   },
   "scripts": {
     "flow": "flow",
