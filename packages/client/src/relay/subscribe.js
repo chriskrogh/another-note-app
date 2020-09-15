@@ -1,10 +1,7 @@
 import { Observable } from 'relay-runtime';
 import { SubscriptionClient } from 'subscriptions-transport-ws';
 
-export const WS_GRAPHQL_ENDPOINT =
-  process.env.NODE_ENV !== 'production'
-    ? 'ws://localhost:4000/graphql'
-    : '/graphql';
+export const WS_GRAPHQL_ENDPOINT = 'ws://localhost:4000/ws';
 
 const client = new SubscriptionClient(WS_GRAPHQL_ENDPOINT, {
   reconnect: true,

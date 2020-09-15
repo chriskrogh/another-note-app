@@ -74,12 +74,12 @@ const main = async (): Promise<void> => {
   // Bind it to port and start listening
   const WS_PORT = 4000;
   websocketServer.listen(WS_PORT, () =>
-    console.log(`Running WS server on http://localhost:${WS_PORT}`),
+    console.log(`Running WS server on ws://localhost:${WS_PORT}`),
   );
 
   SubscriptionServer.create(
     { schema, execute, subscribe },
-    { server: websocketServer, path: '/graphql' },
+    { server: websocketServer, path: '/ws' },
   );
 
   const PORT = 5000;
